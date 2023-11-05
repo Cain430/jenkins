@@ -1,11 +1,12 @@
 pipeline {
     agent any
-    
-	      environment {
-            NODEJS_HOME = tool name: 'NodeJS'
-            PATH = "$NODEJS_HOME/bin:$PATH"
-        }
 
+    environment {
+        NODEJS_HOME = tool name: 'NodeJS'
+        PATH = "$NODEJS_HOME/bin:$PATH"
+    }
+
+    stages {
         stage('Checkout') {
             steps {
                 checkout scm
@@ -19,9 +20,9 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Archive Artifacts') {
             steps {
-                sh 'npm test'
+                archiveArtifacts artifacts: 'dist/**/*', allowEmptyArchive: true
             }
         }
     }
