@@ -7,7 +7,12 @@ pipeline {
                 checkout scm
             }
         }
-
+        stages {
+            stage('Clean Workspace') {
+              steps {
+                deleteDir()
+            }
+        }
         stage('Build') {
             steps {
                 sh 'npm install'
